@@ -98,7 +98,6 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     @Override
     public Collection<RestaurantDto> findAll() {
-        repository.findAll().stream().forEach(System.out::println);
         return restaurantMapper.listRestaurantToListRestaurantDto(repository.findAll());
     }
 

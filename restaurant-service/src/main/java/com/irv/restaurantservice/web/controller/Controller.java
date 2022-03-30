@@ -27,11 +27,6 @@ public class Controller {
     private RestaurantDto restaurantDto;
     private Collection<Restaurant> restaurants;
 
-    @GetMapping("/test")
-    public String test(){
-        return "Hello world";
-    }
-
     @GetMapping("")
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(restaurantService.findAll(),HttpStatus.OK);

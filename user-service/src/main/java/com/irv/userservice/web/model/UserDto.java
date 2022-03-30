@@ -21,8 +21,6 @@ public class UserDto {
     private String name;
     @NotBlank
     private String last_name;
-    @NotBlank
     @Positive
-    @Size(min = 10,max = 10)
     private Long phone;
 }
