@@ -27,20 +27,10 @@ public class UserController {
     }
     @PostMapping()
     private ResponseEntity<?> save(@Valid @RequestBody UserDto userDto) throws Exception {
-        try{
-            user = service.add(userDto);
-        }catch (Exception exception){
-            throw exception;
-        }
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        return new ResponseEntity<>(service.add(userDto),HttpStatus.OK);
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) throws Exception {
-        try{
-            user = service.findById(id);
-        }catch (Exception exception){
-            throw exception;
-        }
-        return  new ResponseEntity<>(user,HttpStatus.OK);
+        return  new ResponseEntity<>(user = service.findById(id),HttpStatus.OK);
     }
 }

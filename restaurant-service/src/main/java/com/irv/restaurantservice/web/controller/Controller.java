@@ -34,16 +34,7 @@ public class Controller {
 
     @GetMapping("name/{name}")
     public ResponseEntity<?> findByName(@PathVariable String name) throws Exception {
-        try {
-            name = name.trim().toLowerCase();
-            restaurants = restaurantMapper.listRestaurantDtoToListRestaurant((List<RestaurantDto>) restaurantService.findByName(name));
-        }catch (RestaurantNotFoundException exception){
-            log.info("No se encontro");
-            throw exception;
-        } catch (Exception exception) {
-            log.info("Ocurrio otro error");
-            throw exception;
-        }
+        restaurants = restaurantMapper.listRestaurantDtoToListRestaurant((List<RestaurantDto>) restaurantService.findByName(name));
         return restaurants.size()>0 ? new ResponseEntity<>(restaurants, HttpStatus.OK) :
                 new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -55,34 +46,31 @@ public class Controller {
 
     @PostMapping()
     public ResponseEntity<?> add(@Valid @RequestBody RestaurantDto restaurantDto) throws Exception{
-        try {
-            this.restaurantDto = restaurantService.add(restaurantDto);
-        } catch (DuplicateRestaurantException e) {
-            log.info("Ya se encuentra este restaurant");
-            throw e;
-        }
-        return new ResponseEntity<>(this.restaurantDto,HttpStatus.CREATED);
+        return new ResponseEntity<>(restaurantService.add(restaurantDto),HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody RestaurantDto restaurantDto,@PathVariable String id)throws Exception{
-        try {
-            this.restaurantDto = restaurantService.update(id,restaurantDto);
-        } catch (RestaurantNotFoundException e) {
-            e.printStackTrace();
-            throw e;
-        }
-        return new ResponseEntity<>(this.restaurantDto,HttpStatus.OK);
+        return new ResponseEntity<>(restaurantService.update(id,restaurantDto),HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) throws Exception {
-        try {
-            restaurantService.delete(id);
-        } catch (RestaurantNotFoundException e) {
-            e.printStackTrace();
-            throw e;
-        }
+        restaurantService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
+/*
+NOTA::::
+Este fragmento corresponde al update
+me di cuenta que se puede dejar directamente le firma en el metodo
+para no llenar de try el controller
+//        try {
+//            this.restaurantDto =
+//        } catch (RestaurantNotFoundException e) {
+//            e.printStackTrace();
+//            throw e;
+//        }
+
+
+ */
