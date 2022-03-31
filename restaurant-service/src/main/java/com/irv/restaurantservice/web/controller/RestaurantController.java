@@ -1,7 +1,5 @@
 package com.irv.restaurantservice.web.controller;
 
-import com.irv.restaurantservice.exceptions.DuplicateRestaurantException;
-import com.irv.restaurantservice.exceptions.RestaurantNotFoundException;
 import com.irv.restaurantservice.service.RestaurantService;
 import com.irv.restaurantservice.web.mapper.RestaurantMapper;
 import com.irv.restaurantservice.domain.Restaurant;
@@ -20,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/restaurants")
 @RequiredArgsConstructor
-public class Controller {
+public class RestaurantController {
 
     private final RestaurantService restaurantService;
     private final RestaurantMapper restaurantMapper;
