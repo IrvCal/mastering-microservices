@@ -43,19 +43,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findById(Long id) throws Exception {
-        return repository.findById(id).map(mapper::userToUserDto).orElseThrow(UserNotFoundException::new);
-//        return mapper.userToUserDto(getOptionalUser(id));
+        return mapper.userToUserDto(getOptionalUser(id));
+//        return repository.findById(id).map(mapper::userToUserDto).orElseThrow(UserNotFoundException::new);//este se repetia dos vececs y mejor lo pase a un metodo
     }
 
     @Override
     public Collection<UserDto> findAll() throws Exception {
         return mapper.usersToUsersDto(repository.findAll());
     }
+
     @Override
     public List<UserDto> findByName(String name) throws Exception {
         return mapper.usersToUsersDto(repository.findByName(name).orElseThrow(UserNotFoundException::new));
     }
-
 
     private User getOptionalUser(Long id) throws UserNotFoundException {
         return repository.findById(id).orElseThrow(UserNotFoundException::new);

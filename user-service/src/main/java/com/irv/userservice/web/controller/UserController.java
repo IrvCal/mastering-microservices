@@ -22,15 +22,28 @@ public class UserController {
     private List<UserDto> users;
 
     @GetMapping()
-    private ResponseEntity<?> getAll() throws Exception {
+    private ResponseEntity<?> findAll() throws Exception {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
     @PostMapping()
-    private ResponseEntity<?> save(@Valid @RequestBody UserDto userDto) throws Exception {
+    private ResponseEntity<?> add(@Valid @RequestBody UserDto userDto) throws Exception {
         return new ResponseEntity<>(service.add(userDto),HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Long id) throws Exception {
-        return  new ResponseEntity<>(user = service.findById(id),HttpStatus.OK);
+    public ResponseEntity<?> findById(@PathVariable Long id) throws Exception {
+        return new ResponseEntity<>(service.findById(id),HttpStatus.OK);
+    }
+    @PostMapping("/{id}")
+    public ResponseEntity<?> update(@Valid @RequestBody UserDto userDto,@PathVariable Long id) throws  Exception{
+        return new ResponseEntity<>(service.update(id,userDto),HttpStatus.OK);
+    }
+    @DeleteMapping("/{id}")
+    private ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
+        service.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("name/{name}")
+    private ResponseEntity<?> findByName(@PathVariable String name) throws Exception {
+        return new ResponseEntity<>(service.findByName(name),HttpStatus.OK);
     }
 }

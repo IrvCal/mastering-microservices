@@ -42,8 +42,6 @@ public class RestaurantExceptionHandler extends ResponseEntityExceptionHandler {
                 .build(), HttpStatus.BAD_REQUEST);
     }
     private ResponseEntity<ErrorInfoDto> makeResponse(HttpServletRequest request, String message, HttpStatus status){
-        System.out.println("\n ----------------------- HACIENDO RESPUESTA");
-
         final ResponseEntity<ErrorInfoDto> errorInfoDtoResponseEntity = new ResponseEntity<>(
                 ErrorInfoDto.builder()
                         .url(request.getRequestURL().toString())
