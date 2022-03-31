@@ -5,6 +5,7 @@ import com.irv.restaurantservice.domain.Restaurant;
 import com.irv.restaurantservice.exceptions.DuplicateRestaurantException;
 import com.irv.restaurantservice.exceptions.RestaurantNotFoundException;
 import com.irv.restaurantservice.web.mapper.RestaurantMapper;
+import com.irv.restaurantservice.web.mapper.TableMapper;
 import com.irv.restaurantservice.web.model.RestaurantDto;
 import com.irv.restaurantservice.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     private final RestaurantRepository repository;
     private final RestaurantMapper restaurantMapper;
+    private final TableMapper tableMapper;
     private RestaurantDto restaurant;
     private Collection<RestaurantDto> restaurants;
 
@@ -30,7 +32,7 @@ public class RestaurantServiceImpl implements RestaurantService{
         Restaurant restaurant = repository.findById(id).orElseThrow(RestaurantNotFoundException::new);
         restaurant.setName(restaurantDto.getName());
         restaurant.setAddress(restaurantDto.getAddress());
-        restaurant.setTables(restaurantDto.getTables());
+        restaurant.setTables(tableMapper.tablesDtoToTables(restaurantDto.getTables()));
         return restaurantMapper.restaurantToRestaurantDto(repository.save(restaurant));
     }
 
@@ -69,7 +71,7 @@ public class RestaurantServiceImpl implements RestaurantService{
         }
         return restaurant;*/
 
-        return repository.findById(restaurantId).map(restaurant1 -> restaurantMapper.restaurantToRestaurantDto(restaurant1)).orElseThrow(RestaurantNotFoundException::new);//podria hacer el mapper primero en lugar de hacerlo en la lambda pero ya mejor lo dejo ahi
+        return repository.findById(restaurantId).map(restaurantMapper::restaurantToRestaurantDto).orElseThrow(RestaurantNotFoundException::new);//podria hacer el mapper primero en lugar de hacerlo en la lambda pero ya mejor lo dejo ahi
     }
     @Override
     public Collection<RestaurantDto> findByName(String name) throws Exception {
@@ -91,7 +93,7 @@ public class RestaurantServiceImpl implements RestaurantService{
         */
         //tercer y utlimo intento, si no esta es un Optional.empty() EL SEGUNDO ES EL BUENO PARA TODO LO DEMAS PERO EN ESTE LO DEJO ASI
 //       ESTE ES EL SEGUNDO: repository.findByName(name).map(restaurant1 -> restaurants.add(restaurantMapper.restaurantToRestaurantDto(restaurant1))).orElseThrow(RestaurantNotFoundException::new);
-        restaurants.clear();
+
         restaurants.add(restaurantMapper.restaurantToRestaurantDto(repository.findByName(name).orElseThrow(RestaurantNotFoundException::new)));
         return restaurants;
     }

@@ -16,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorInfoDto> handleUserNotFoundException(WebRequest request, UserNotFoundException exception){
-        return makeResponse(request,"", HttpStatus.NOT_FOUND);
+    public ResponseEntity<ErrorInfoDto> handleUserNotFoundException(HttpServletRequest request, UserNotFoundException exception){
+        return makeResponse(request,exception.getMessage(), HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorInfoDto> handleException(WebRequest request, Exception exception){
-        return makeResponse(request,"Error inesperado: ",HttpStatus.INTERNAL_SERVER_ERROR);
+    public ResponseEntity<ErrorInfoDto> handleException(HttpServletRequest request, Exception exception){
+        return makeResponse(request,"PROBLEMAS "+exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -31,13 +31,13 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.NOT_ACCEPTABLE)
                 .build(), HttpStatus.BAD_REQUEST);
     }
-
-    private ResponseEntity<ErrorInfoDto> makeResponse(WebRequest request, String message, HttpStatus status) {
-        return new ResponseEntity<>(ErrorInfoDto.builder()
-                .url(request.getContextPath())
-                .message(message)
-                .status(status)
-                .build(), status);
+    private ResponseEntity<ErrorInfoDto> makeResponse(HttpServletRequest request, String message, HttpStatus status){
+        return new ResponseEntity<>(
+                ErrorInfoDto.builder()
+                        .url(request.getRequestURL().toString())
+                        .message(message)
+                        .status(status)
+                        .build(), status);
     }
 
 }

@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 import java.util.Optional;
 
-@Mapper(uses = {UtilitiesMapper.class})
+@Mapper(uses = {UtilitiesMapper.class,TableMapper.class})
 public interface RestaurantMapper {
     Restaurant restaurantDtoToRestaurant(RestaurantDto restaurantDto);
     RestaurantDto restaurantToRestaurantDto(Restaurant restaurant);

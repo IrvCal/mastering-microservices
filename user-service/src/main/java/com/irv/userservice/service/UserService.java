@@ -4,7 +4,6 @@ import com.irv.userservice.web.model.UserDto;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
     UserDto add(UserDto userDto)throws Exception;

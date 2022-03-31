@@ -43,7 +43,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findById(Long id) throws Exception {
-        return mapper.userToUserDto(getOptionalUser(id));
+        return repository.findById(id).map(mapper::userToUserDto).orElseThrow(UserNotFoundException::new);
+//        return mapper.userToUserDto(getOptionalUser(id));
     }
 
     @Override

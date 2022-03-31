@@ -18,7 +18,7 @@ import java.util.List;
 public class RestaurantDto {
     @Null
     private String id;
-    private List<Table> tables;
+    private List<TableDto> tables;
     @NotBlank
     @Size(min = 3)
     private String name;
