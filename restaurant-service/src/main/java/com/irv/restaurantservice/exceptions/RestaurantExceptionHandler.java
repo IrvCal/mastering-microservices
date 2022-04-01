@@ -39,13 +39,15 @@ public class RestaurantExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(ErrorInfoDto.builder()
                 .url(request.getDescription(false))
                 .message(ex.getBindingResult().toString())
-                .build(), HttpStatus.BAD_REQUEST);
+                .status(HttpStatus.NOT_ACCEPTABLE)
+                .build(), HttpStatus.NOT_ACCEPTABLE);
     }
     private ResponseEntity<ErrorInfoDto> makeResponse(HttpServletRequest request, String message, HttpStatus status){
         final ResponseEntity<ErrorInfoDto> errorInfoDtoResponseEntity = new ResponseEntity<>(
                 ErrorInfoDto.builder()
                         .url(request.getRequestURL().toString())
                         .message(message)
+                        .status(status)
                         .build(), status);
         System.out.println(errorInfoDtoResponseEntity);
         return errorInfoDtoResponseEntity;

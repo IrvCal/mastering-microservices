@@ -21,8 +21,4 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant")
     private List<Table> tables;
 
-    @Override
-    public String toString() {
-        return "{id: "+id+" name: "+name+" address: "+address+"}";
-    }
 }

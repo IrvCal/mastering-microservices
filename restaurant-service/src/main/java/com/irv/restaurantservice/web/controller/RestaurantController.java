@@ -34,7 +34,7 @@ public class RestaurantController {
     public ResponseEntity<?> findByName(@PathVariable String name) throws Exception {
         restaurants = restaurantMapper.listRestaurantDtoToListRestaurant((List<RestaurantDto>) restaurantService.findByName(name));
         return restaurants.size()>0 ? new ResponseEntity<>(restaurants, HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}")
