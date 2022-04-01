@@ -36,11 +36,6 @@ class RestaurantControllerTest {
     private WebTestClient webTestClient;
     //esta es la implementacion real para consumir servicios rest con caracteristicas con pruebas unitarias
 
-    @BeforeEach
-    void setUp() {
-        objectMapper = new ObjectMapper();
-    }
-
     @Autowired
     private RestaurantMapper restaurantMapper;
 
@@ -142,7 +137,6 @@ class RestaurantControllerTest {
     @Test
     @Order(5)
     void delete() {
-
         webTestClient.get().uri("/v1/restaurants/")
                 .exchange()
                 .expectStatus().isOk()
