@@ -24,7 +24,6 @@ class UserServiceApplicationTests {
 	private final String USER_NAME = "Irving";
 	private static final String USER_LAST_NAME_2 = "Valenzuela";
 	private final String USER_NAME_1 = "Juan";
-	private ObjectMapper objectMapper;
 
 	@Autowired
 	private WebTestClient webTestClient;
