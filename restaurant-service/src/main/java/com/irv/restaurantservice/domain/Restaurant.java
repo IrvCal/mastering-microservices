@@ -15,7 +15,7 @@ import java.util.Optional;
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
     private String name;
     private String address;
     @OneToMany(mappedBy = "restaurant")

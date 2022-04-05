@@ -43,8 +43,6 @@
 		<module>../restaurant-service</module>
 		<module>../user-service</module>
 		<module>../booking-service</module>
-		<module>../config-server</module>
-		<module>../config-server</module>
 	</modules>
 
 	<dependencies>
@@ -72,6 +70,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- MYSQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.28</version>
 		</dependency>
 		<!--H2-->
 		<dependency>

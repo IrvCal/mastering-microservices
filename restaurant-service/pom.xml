@@ -21,7 +21,6 @@
 		<docker.port>8080</docker.port>
 	</properties>
 	<dependencies>
-
 	</dependencies>
 	<build>
 		<plugins>
