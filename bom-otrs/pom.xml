@@ -21,6 +21,7 @@
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
 		<!--Esta propiedad ayuda al testo para tereas asincronas-->
 		<awaitility.version>4.0.2</awaitility.version>
+		<spring-cloud.version>2021.0.0</spring-cloud.version>
 	</properties>
 
 
@@ -32,7 +33,8 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Finchley.SR1</version>
+<!--				<version>Finchley.SR1</version>-->
+				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -100,10 +102,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+		<!--Spring Cloud-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
 	</dependencies>
 
-	<!-- Build step is required to include the spring boot artifacts in
-  generated jars -->
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
@@ -154,7 +159,7 @@
 					<release>11</release>
 					<source>1.11</source>
 					<target>1.11</target>
-					<executable>${JAVA_1_11_HOME}/bin/javac</executable>
+<!--					<executable>${JAVA_1_11_HOME}/bin/javac</executable>-->
 					<showDeprecation>true</showDeprecation>
 					<showWarnings>true</showWarnings>
 				</configuration>

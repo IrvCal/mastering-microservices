@@ -1,1 +1,8 @@
-
+server:
+  port: 8888 #creo que es por convention
+info:
+    component: Config Server
+logging:
+  level:
+    ROOT: INFO
+    org.springframework.jdbc: DEBUG
