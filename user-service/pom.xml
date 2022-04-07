@@ -18,11 +18,11 @@
 	</properties>
 
 	<dependencies>
-		<!--Configuracion con elementos externos-->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
+		<!--Configuracion con elementos externos que esten desde GIT o algo por el estilo-->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-config</artifactId>-->
+<!--		</dependency>-->
 		<!--Health Check-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

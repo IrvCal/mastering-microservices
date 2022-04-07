@@ -11,8 +11,8 @@ endpoints:
 zuul:
   ignoredServices: "*"
   routes:
-    restaurantapi:
-      path: /restaurantapi/**
+    restaurant-service:
+      path: /restaurant-service/**
       serviceId: restaurant-service
       stripPrefix: true
 server:
