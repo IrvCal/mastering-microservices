@@ -18,3 +18,17 @@ resilience4j:
     instances:
       numero-veces:
         max-attempsts: 10
+
+endpoints:
+  health:
+    sensitive: false
+
+management:
+  security:
+    enabled: false
+  endpoints:
+    metrics:
+      enabled: true
+    web:
+      exposure:
+        include: '*'
