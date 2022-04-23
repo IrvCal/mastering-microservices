@@ -1,11 +1,14 @@
 package com.irv.restaurantservice.web.controller;
 
+import com.irv.restaurantservice.proxy.RestTemplateUsers;
 import com.irv.restaurantservice.service.RestaurantService;
 import com.irv.restaurantservice.web.mapper.RestaurantMapper;
 import com.irv.restaurantservice.domain.Restaurant;
 import com.irv.restaurantservice.web.model.RestaurantDto;
+import com.netflix.discovery.converters.Auto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,8 @@ public class RestaurantController {
     private final RestaurantMapper restaurantMapper;
     private RestaurantDto restaurantDto;
     private Collection<Restaurant> restaurants;
+    @Autowired
+    private RestTemplateUsers restTemplateUsers;
 
     @GetMapping("")
     public ResponseEntity<?> findAll(){
@@ -56,7 +61,10 @@ public class RestaurantController {
         restaurantService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
+    @GetMapping("/restTemplate")
+    public void restTemplate(){
+        restTemplateUsers.getUsers();
+    }
 }
 /*
 NOTA::::

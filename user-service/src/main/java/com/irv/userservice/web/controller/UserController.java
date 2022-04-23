@@ -42,7 +42,7 @@ public class UserController {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    @GetMapping("name/{name}")
+    @GetMapping({"name/{name}", "nombre/{name}"})//se puede hacer una "Lista" de "diferentes" endpints para el mismo metodo
     private ResponseEntity<?> findByName(@PathVariable String name) throws Exception {
         return new ResponseEntity<>(service.findByName(name),HttpStatus.OK);
     }
