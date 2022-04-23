@@ -1,5 +1,6 @@
 package com.irv.restaurantservice.web.controller;
 
+import com.irv.restaurantservice.proxy.FeingClientUsers;
 import com.irv.restaurantservice.proxy.RestTemplateUsers;
 import com.irv.restaurantservice.service.RestaurantService;
 import com.irv.restaurantservice.web.mapper.RestaurantMapper;
@@ -29,6 +30,9 @@ public class RestaurantController {
     private Collection<Restaurant> restaurants;
     @Autowired
     private RestTemplateUsers restTemplateUsers;
+    @Autowired
+    private FeingClientUsers proxy;
+
 
     @GetMapping("")
     public ResponseEntity<?> findAll(){
@@ -64,6 +68,11 @@ public class RestaurantController {
     @GetMapping("/restTemplate")
     public void restTemplate(){
         restTemplateUsers.getUsers();
+    }
+    @GetMapping("/feign")
+    public void feign(){
+        final List<Object> users = proxy.getUsers();
+        users.forEach(System.out::println);
     }
 }
 /*
