@@ -15,9 +15,12 @@ public class Product {
     private Float discount;
     private UUID[] relatedProducts;
     private int ranking;
+    private Product product;
 
     public Product(){}
-    public Product(UUID id, String name, String description, Category category, Double price, Integer totalAvailable, Boolean available, Float discount, UUID[] relatedProducts, int ranking) {
+
+    public Product(UUID id, String name, String description, Category category, Double price,
+                   Integer totalAvailable, Boolean available, Float discount, UUID[] relatedProducts, int ranking) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,6 +31,20 @@ public class Product {
         this.discount = discount;
         this.relatedProducts = relatedProducts;
         this.ranking = ranking;
+    }
+
+    public Product(Product product,int totalAvailable) {
+        this.id = product.getId();
+        this.totalAvailable = totalAvailable;
+        this.name = product.getName();
+        this.description = product.getDescription();
+        this.category = product.getCategory();
+        this.price = product.getPrice();
+        this.totalAvailable = totalAvailable;
+        this.available = product.getAvailable();
+        this.discount = product.getDiscount();
+        this.relatedProducts = product.getRelatedProducts();
+        this.ranking = product.getRanking();
     }
 
     @Override

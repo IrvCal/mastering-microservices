@@ -1,10 +1,11 @@
 package PracticeWithObjects;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MainProducts {
 
@@ -14,16 +15,18 @@ public class MainProducts {
     public static void main(String[] args) {
         productList = new ArrayList<>(initializeData());
         additionalProductList = new ArrayList<>(initializeData2());
-        ;
+
+        joinProducts(productList,additionalProductList);
+
         //Recollect all items with the same category
 // CATEGORIES: FOOD,HEALTHCARE,ELECTRONIC,CLOTHING, BOOKS
 
-        seeDiferentProducts(productList,additionalProductList);
+        seeSameProducts(productList,additionalProductList);
 
-        System.out.println(productList.size());
-        System.out.println(additionalProductList.size());
-        productList.addAll(additionalProductList);
-        System.out.println(productList.size());
+//        System.out.println(productList.size());
+//        System.out.println(additionalProductList.size());
+//        productList.addAll(additionalProductList);
+//        System.out.println(productList.size());
 
         ArrayList<Product> food =  new ArrayList<>(productList.stream().filter(product -> product.getCategory().equals(
                 Category.FOOD)).collect(Collectors.toList()));
@@ -35,11 +38,38 @@ public class MainProducts {
                 Category.CLOTHING)).collect(Collectors.toList()));
         List<Product> books =  new ArrayList<>(productList.stream().filter(product -> product.getCategory().equals(
                 Category.BOOKS)).collect(Collectors.toList()));
+        System.out.println("\nSummarizing products\n");
+        printProducts(food);
 
     }
+    /*
+    This one has a very good functionality and it follows the practices of BigO
+
+     */
+    private static void joinProducts(ArrayList<Product> listProducts1, ArrayList<Product> listProducts2) {
+        System.out.println("Joining products");
+        List<Product> totalProducts = new ArrayList<>(Stream.concat(listProducts1.stream(), listProducts2.stream())
+                .collect(Collectors.toMap(Product::getName, product -> product, (product1, product2) -> new Product(product1,
+                        product1.getTotalAvailable() + product1.getTotalAvailable())
+                )).values());// -> lo hago mapa para no tener valores repetidos necesita (llave, valor)
+        // with the Array Constructor the .Collectors.toList is saved
+    }
+
+    private static void printProducts(ArrayList<Product> food) {
+        food.stream().map(Product::getName).forEach(System.out::println);
+    }
+
     // Aqui puedo tener varios registros iguales pero con diferente UUID
-    private static void seeDiferentProducts(ArrayList<Product> productList, ArrayList<Product> additionalProductList) {
-//        productList.stream().filter(product -> additionalProductList.stream().map(Product::getName).anyMatch());
+    /*
+        Si hay multiples registros de un producto hacerlo 1
+     */
+    private static void seeSameProducts(ArrayList<Product> productList, ArrayList<Product> additionalProductList) {
+//        additionalProductList.stream().map(Product::getName).filter();
+        System.out.println("Same products");
+        productList.stream().filter(product ->
+                additionalProductList.stream().map(Product::getName)
+                        .anyMatch(s -> product.getName().equals(s)))
+                .forEach(System.out::println);
     }
 
     public static List<Product> initializeData2(){
